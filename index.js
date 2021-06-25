@@ -5,9 +5,12 @@ const cors = require("cors")
 const app = express()
 const port = 5000
 require ('./models/user')
+require ('./models/post')
 app.use(express.json())
 app.use(cors())
 app.use(require('./router/auth'))
+app.use(require('./router/post'))
+
 
 mongoose.connect(MONGOURI,{
     useUnifiedTopology: true , useNewUrlParser: true 
