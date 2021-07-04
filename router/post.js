@@ -20,10 +20,13 @@ router.post('/createpost',requireLogin,(req,res)=>{
     })
     post.save().then(result => {
         res.json({post:result})
+    }).catch((err)=> {
+        res.json({err})
     })
 })
 router.get('/allposts',requireLogin,(req,res)=>{
     Post.find()
+    .sort({_id:-1})
     .populate("postedBy","_id name email")
     .then(result=>{
         res.json({posts:result})
@@ -32,9 +35,19 @@ router.get('/allposts',requireLogin,(req,res)=>{
 
 router.get('/mypost',requireLogin,(req,res)=>{
     Post.find({postedBy:req.user})
+    .sort({_id:-1})
     .populate("postedBy","_id name email")
     .then(result=>{
         res.json({mypost:result})
+    })
+})
+
+router.get('/post/:id',requireLogin,(req,res)=>{
+    Post.findById({_id:req.params.id})
+   
+    .populate("postedBy","_id name email")
+    .then(result=>{
+        res.json({post:result})
     })
 })
 
