@@ -6,10 +6,12 @@ const app = express()
 const port = 5000
 require ('./models/user')
 require ('./models/post')
+require ('./models/commande')
 app.use(express.json())
 app.use(cors())
 app.use(require('./router/auth'))
 app.use(require('./router/post'))
+app.use(require('./router/commande'))
 
 
 mongoose.connect(MONGOURI,{
