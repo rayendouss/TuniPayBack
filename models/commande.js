@@ -12,7 +12,7 @@ const commandeSchema= new mongoose.Schema({
     },
     listCommande: {
         type:ObjectId,
-        ref:"post",
+        ref:"Post",
         required:true
     },
     paiement:{
@@ -22,6 +22,10 @@ const commandeSchema= new mongoose.Schema({
     status:{
         type:String,
         default:"en cours"
+    },
+    quantite:{
+        type:Number,
+        required:true
     }
 
 
