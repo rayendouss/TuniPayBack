@@ -11,15 +11,19 @@ router.post('/addCommande',requireLogin,(req,res)=>{
         return res.status(422).json({error:"Please add all fields"})
     }
     req.user.password=undefined
+   
+
     const commande= new Commande({
        DateC:new Date(),
 
         commandeBy:req.user,
         listCommande: req.body.listCommande,
         paiement:req.body.paiement,
-        quantite:req.body.quantite
+        quantite:req.body.quantite,
+        address:req.body.address
         
     })
+    
        Post.findById({_id:listCommande._id})
         .then((resu)=>{
             
@@ -49,6 +53,7 @@ router.get('/allCommandes',requireLogin,(req,res)=>{
     Commande.find()
     .populate("commandeBy","_id name email")
     .populate("listCommande")
+ 
     .then((result)=>{
         res.json({commandes:result})
     })
@@ -65,6 +70,15 @@ router.delete('/commande/:id',requireLogin,(req,res)=>{
     Commande.findByIdAndDelete({_id:req.params.id})
     .then(result=>{
         res.json({msg:"commande deleted"})
+    })
+})
+
+router.get('/mycommande',requireLogin,(req,res)=>{
+    Commande.find({commandeBy:req.user})
+ 
+    .populate("commandeBy","_id name email")
+    .then(result=>{
+        res.json({result})
     })
 })
 module.exports= router

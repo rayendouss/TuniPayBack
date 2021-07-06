@@ -26,7 +26,11 @@ const commandeSchema= new mongoose.Schema({
     quantite:{
         type:Number,
         required:true
-    }
+    },
+    address:{
+        type:String,
+        required:true
+    },
 
 
 })

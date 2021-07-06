@@ -10,8 +10,8 @@ router.get('/',requireLogin,(req,res)=>{
 })
 
 router.post('/signup',(req,res)=>{
-    const {name,email,password}=req.body
-    if(!email || !password || !name){
+    const {name,email,password,address}=req.body
+    if(!email || !password || !name || !address){
        return res.status(422).json({error:"please add the fileds"})
     }
     User.findOne({email:email}).then((savedUser)=>{
@@ -21,7 +21,8 @@ router.post('/signup',(req,res)=>{
         const user = new User({
             email,
             name,
-            password
+            password,
+            address
         }) 
         user
         .save()
