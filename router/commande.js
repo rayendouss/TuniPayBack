@@ -77,6 +77,7 @@ router.get('/mycommande',requireLogin,(req,res)=>{
     Commande.find({commandeBy:req.user})
  
     .populate("commandeBy","_id name email")
+    .populate("listCommande","_id title photo")
     .then(result=>{
         res.json({result})
     })
