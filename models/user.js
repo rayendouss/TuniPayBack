@@ -16,6 +16,10 @@ const userSchema= new mongoose.Schema({
     address:{
         type:String,
         required:true
+    },
+    resetPasswordlink:{
+        type:String
+        
     }
 })
 

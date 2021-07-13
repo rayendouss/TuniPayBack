@@ -3,7 +3,7 @@ const router= express.Router()
 const mongoose= require("mongoose")
 const User= mongoose.model("User")
 const jwt= require("jsonwebtoken")
-const {JWT_SECRET,JWT_ACCOUNT_ACTIVATION,EMAIL_FROM,CLIENT_URL,MAIL_KEY}= require('../database/keys')
+const {JWT_SECRET,JWT_ACCOUNT_ACTIVATION,EMAIL_FROM,CLIENT_URL,MAIL_KEY,JWT_RESET_PASSWORD}= require('../database/keys')
 const requireLogin= require("../middleware/requireLogin")
 const expressJwt = require('express-jwt');
 const _ = require('lodash');
@@ -130,5 +130,94 @@ router.post('/signin',(req,res)=>{
         }
     })
 })
+
+router.post('/forgotpassword',(req,res)=>{
+    const {email}=req.body
+    if(!email ){
+        
+       return res.status(422).json({error:"please add the email"})
+    }
+  
+      
+   
+    User.findOne({email:email}).then(user=>{
+        if(!user) {
+            return res.status(400).json({error:"email inexist"})
+        }
+        
+    
+        const token=jwt.sign(
+            {
+               _id:user._id
+            },
+            JWT_RESET_PASSWORD,
+            {
+                expiresIn:"30m"
+            }
+        )
+        const emailData={
+            from:EMAIL_FROM,
+            to:email,
+            subject:' RESET PASSWORD LINK',
+            html: `
+            <h1>Please Click to reset your password </h1>
+            <p>${CLIENT_URL}/password/reset/${token} </p>
+            <hr/>
+            <p>This email contain sensetive info </p>
+            <p>${CLIENT_URL} </p> 
+            `
+        }
+     return user.updateOne({
+         resetPasswordlink:token
+     },(err,success)=>{
+         if(err){
+             res.status(500).json({error:err})
+         }
+         else 
+         {
+            sgMail.send(emailData).then(sent=>{
+           
+                res.json({message:" Email has been sent",email})
+           
+          
+        })
+         }
+     })
+    })  
+
+     
+    })
+
+ router.put('/resetpassword',(req,res)=>{
+     const {resetPasswordlink,newPassword} =req.body
+     if(resetPasswordlink){
+        
+       jwt.verify(resetPasswordlink,JWT_RESET_PASSWORD,function(err,decoded){
+             if(err){
+                 return res.status(420).json({error:"expired token"})
+             }
+             User.findOne({resetPasswordlink:resetPasswordlink}).then((result)=>{
+              
+                 var user = new User({
+                     _id:result._id,
+                     name:result.name,
+                     email:result.email,
+                     address:result.address,
+                     resetPasswordlink:"",
+                     password:newPassword
+                 })
+                 User.findByIdAndUpdate(result._id,{$set:user},{new:true},(err,doc)=>{
+                   if(err){
+                    return res.status(422).json({message:err})
+                   }
+                   return res.status(200).json({message:"password changed ! you can login with the new password"})
+                 })
+             })
+       })
+     }
+
+ })   
+
+
 
 module.exports= router
