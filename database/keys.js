@@ -1,4 +1,9 @@
 module.exports={
     MONGOURI:"mongodb+srv://stage:howw65i3zt8LTjFT@cluster0.5wv91.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    JWT_SECRET:"tuniPay"
+    JWT_SECRET:"tuniPay",
+    CLIENT_URL:"http://localhost:3000",
+    JWT_ACCOUNT_ACTIVATION:"signupverification0987",
+    EMAIL_FROM:"mohamedrayane.douss@esprit.tn",
+    MAIL_KEY:"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",
+    JWT_RESET_PASSWORD:"resetpasswordkey9753"
 }
