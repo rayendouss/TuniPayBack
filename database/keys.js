@@ -5,5 +5,7 @@ module.exports={
     JWT_ACCOUNT_ACTIVATION:"signupverification0987",
     EMAIL_FROM:"mohamedrayane.douss@esprit.tn",
     MAIL_KEY:"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",
-    JWT_RESET_PASSWORD:"resetpasswordkey9753"
+    JWT_RESET_PASSWORD:"resetpasswordkey9753",
+    GOOGLE_CLIENT:"5098527572-mo5b3f542b9cnp5odp1aslf6a4g8uh4d.apps.googleusercontent.com",
+    FACEBOOK_CLIENT:"1151630195337738"
 }

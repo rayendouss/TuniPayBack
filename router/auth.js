@@ -3,7 +3,7 @@ const router= express.Router()
 const mongoose= require("mongoose")
 const User= mongoose.model("User")
 const jwt= require("jsonwebtoken")
-const {JWT_SECRET,JWT_ACCOUNT_ACTIVATION,EMAIL_FROM,CLIENT_URL,MAIL_KEY,JWT_RESET_PASSWORD}= require('../database/keys')
+const {JWT_SECRET,JWT_ACCOUNT_ACTIVATION,EMAIL_FROM,CLIENT_URL,MAIL_KEY,JWT_RESET_PASSWORD,GOOGLE_CLIENT}= require('../database/keys')
 const requireLogin= require("../middleware/requireLogin")
 const expressJwt = require('express-jwt');
 const _ = require('lodash');
@@ -218,6 +218,106 @@ router.post('/forgotpassword',(req,res)=>{
 
  })   
 
+ const client = new OAuth2Client(GOOGLE_CLIENT);
+// Google Login
+router.post("/googlelogin", (req, res) => {
+  const { idToken } = req.body;
 
+  client
+    .verifyIdToken({ idToken, audience: GOOGLE_CLIENT })
+    .then(response => {
+      // console.log('GOOGLE LOGIN RESPONSE',response)
+      const { email_verified, name, email } = response.payload;
+      if (email_verified) {
+        User.findOne({ email }).exec((err, user) => {
+          if (user) {
+            const token = jwt.sign({ _id: user._id }, JWT_SECRET);
+            const { _id, email, name } = user;
+            return res.json({
+              token,
+              user: { _id, email, name }
+            });
+          } else {
+            let password = email + JWT_SECRET;
+            user = new User({ name, email, password });
+            user.save((err, data) => {
+              if (err) {
+                console.log('ERROR GOOGLE LOGIN ON USER SAVE', err);
+                return res.status(400).json({
+                  error: 'User signup failed with google'
+                });
+              }
+              const token = jwt.sign(
+                { _id: data._id },
+              JWT_SECRET
+              );
+              const { _id, email, name } = data;
+              return res.json({
+                token,
+                user: { _id, email, name }
+              });
+            });
+          }
+        });
+      } else {
+        return res.status(400).json({
+          error: 'Google login failed. Try again'
+        });
+      }
+    });
+});
+
+router.post('/FBlogin',(req,res)=>{
+    console.log('FACEBOOK LOGIN REQ BODY', req.body);
+    const { userID, accessToken } = req.body;
+  
+    const url = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email&access_token=${accessToken}`;
+  
+    return (
+      fetch(url, {
+        method: 'GET'
+      })
+        .then(response => response.json())
+        // .then(response => console.log(response))
+        .then(response => {
+          const { email, name } = response;
+          User.findOne({ email }).exec((err, user) => {
+            if (user) {
+              const token = jwt.sign({ _id: user._id }, JWT_SECRET);
+              const { _id, email, name } = user;
+              return res.json({
+                token,
+                user: { _id, email, name }
+              });
+            } else {
+              let password = email +JWT_SECRET;
+              user = new User({ name, email, password });
+              user.save((err, data) => {
+                if (err) {
+                  console.log('ERROR FACEBOOK LOGIN ON USER SAVE', err);
+                  return res.status(400).json({
+                    error: 'User signup failed with facebook'
+                  });
+                }
+                const token = jwt.sign(
+                  { _id: data._id },
+                JWT_SECRET
+                );
+                const { _id, email, name } = data;
+                return res.json({
+                  token,
+                  user: { _id, email, name }
+                });
+              });
+            }
+          });
+        })
+        .catch(error => {
+          res.json({
+            error: 'Facebook login failed. Try later'
+          });
+        })
+    );
+})
 
 module.exports= router
