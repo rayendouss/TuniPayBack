@@ -19,7 +19,7 @@ app.use(require('./router/commande'))
 
 
 mongoose.connect(MONGOURI,{
-    useUnifiedTopology: true , useNewUrlParser: true 
+    useUnifiedTopology: true , useNewUrlParser: true ,useFindAndModify:true
 })
 mongoose.connection.on('connected',()=>{
     console.log("connected to mongoDB atlas")

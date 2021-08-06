@@ -5,6 +5,10 @@ const userSchema= new mongoose.Schema({
         type:String,
     required:true
     },
+    lastname:{
+        type:String,
+    required:true
+    },
     email:{
         type:String,
     required:true
@@ -15,7 +19,19 @@ const userSchema= new mongoose.Schema({
     },
     address:{
         type:String,
-       
+        required:true
+    },
+    birth:{
+        type:String,
+        required:true
+    },
+    photo:{
+        type:String,
+         
+    },
+    genre : {
+        type : String ,
+        required : true
     },
     resetPasswordlink:{
         type:String

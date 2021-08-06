@@ -51,7 +51,7 @@ router.post('/addCommande',requireLogin,(req,res)=>{
 
 router.get('/allCommandes',requireLogin,(req,res)=>{
     Commande.find()
-    .populate("commandeBy","_id name email")
+    .populate("commandeBy","_id name email lastname photo")
     .populate("listCommande")
  
     .then((result)=>{
@@ -76,8 +76,8 @@ router.delete('/commande/:id',requireLogin,(req,res)=>{
 router.get('/mycommande',requireLogin,(req,res)=>{
     Commande.find({commandeBy:req.user})
  
-    .populate("commandeBy","_id name email")
-    .populate("listCommande","_id title photo")
+    .populate("commandeBy","_id name email lastname photo")
+    .populate("listCommande","_id title photo price")
     .sort({_id:-1})
     .then(result=>{
         res.json({result})

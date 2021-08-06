@@ -51,5 +51,27 @@ router.get('/post/:id',requireLogin,(req,res)=>{
     })
 })
 
+router.delete('/deleteP/:id',requireLogin,(req,res)=>{
+    Post.findOne({_id:req.params.id})
+    .populate("postedBy","_id")
+    .exec((err,post)=>{
+        if(err || !post){
+            return res.status(422).json({error:err})
+        }
+        if(post.postedBy._id.toString() === req.user._id.toString()){
+            post.remove()
+            .then(result=>{
+                Post.find({postedBy:req.user})
+                .sort({_id:-1})
+                .populate("postedBy","_id name email")
+                .then(result=>{
+                    res.json({posts:result})
+                })
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+    })
+})
 
 module.exports= router

@@ -226,6 +226,7 @@ router.post("/googlelogin", (req, res) => {
   client
     .verifyIdToken({ idToken, audience: GOOGLE_CLIENT })
     .then(response => {
+    
       // console.log('GOOGLE LOGIN RESPONSE',response)
       const { email_verified, name, email } = response.payload;
       if (email_verified) {
@@ -284,10 +285,10 @@ router.post('/FBlogin',(req,res)=>{
           User.findOne({ email }).exec((err, user) => {
             if (user) {
               const token = jwt.sign({ _id: user._id }, JWT_SECRET);
-              const { _id, email, name } = user;
+              const { _id, email, name ,password} = user;
               return res.json({
                 token,
-                user: { _id, email, name }
+                user: { _id, email, name, password }
               });
             } else {
               let password = email +JWT_SECRET;
@@ -318,6 +319,45 @@ router.post('/FBlogin',(req,res)=>{
           });
         })
     );
+})
+
+router.put('/updatePr',requireLogin,(req,res)=>{
+  var user= new User({
+    _id:req.body._id,
+    name:req.body.name,
+    lastname:req.body.lastname,
+    birth:req.body.birth,
+    genre:req.body.genre,
+    email:req.body.email,
+    address:req.body.address,
+    photo: req.body.photo,
+    password:req.body.password
+})
+User.findOne({_id:req.body._id},function (err,doc) {
+  console.log(doc)
+  console.log(req.user._id)
+  if(doc._id.toString()==req.user._id.toString()){
+  User.findByIdAndUpdate(doc._id,{$set:user},{new:true},(err,doc)=>{
+      if(!err){
+          res.send({user:doc})
+      }
+      else {
+          console.log(err)
+      }
+  })
+  }else {
+      res.json("mchhowaAA")
+    }
+})
+
+})
+
+router.get('/allUser',requireLogin,(req,res)=>{
+  User.find()
+  .sort({_id:-1})
+  .then(result=>{
+    return  res.json({result})
+  })
 })
 
 module.exports= router
