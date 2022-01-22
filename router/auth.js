@@ -360,4 +360,12 @@ router.get('/allUser',requireLogin,(req,res)=>{
   })
 })
 
+router.get('/userId/:id',requireLogin,(req,res)=>{
+  User.findById({_id:req.params.id})
+  .sort({_id:-1})
+  .then(result=>{
+    return  res.json(result)
+  })
+})
+
 module.exports= router

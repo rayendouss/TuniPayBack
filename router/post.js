@@ -27,7 +27,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
 router.get('/allposts',requireLogin,(req,res)=>{
     Post.find()
     .sort({_id:-1})
-    .populate("postedBy","_id name email")
+    .populate("postedBy","_id name email photo lastname")
     .then(result=>{
         res.json({posts:result})
     })
@@ -45,7 +45,7 @@ router.get('/mypost',requireLogin,(req,res)=>{
 router.get('/post/:id',requireLogin,(req,res)=>{
     Post.findById({_id:req.params.id})
    
-    .populate("postedBy","_id name email")
+    .populate("postedBy","_id name email lastname photo")
     .then(result=>{
         res.json({post:result})
     })
@@ -71,6 +71,14 @@ router.delete('/deleteP/:id',requireLogin,(req,res)=>{
                 console.log(err)
             })
         }
+    })
+})
+
+router.get('/userpost/:id',requireLogin,(req,res)=>{
+    Post.find({postedBy:req.params.id})
+    .populate('postedBy',"name lastname photo")
+    .then(result=>{
+        res.json({post:result})
     })
 })
 

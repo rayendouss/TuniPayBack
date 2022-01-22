@@ -61,6 +61,9 @@ router.get('/allCommandes',requireLogin,(req,res)=>{
 
 router.get('/commande/:id',requireLogin,(req,res)=>{
     Commande.findById({_id:req.params.id})
+    .populate("commandeBy")
+    .populate("listCommande")
+   
     .then(result=>{
         res.json({commande:result})
     })
