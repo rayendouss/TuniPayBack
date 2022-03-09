@@ -1,5 +1,5 @@
 const mongoose= require("mongoose")
-
+const {ObjectId} = mongoose.Schema.Types
 const userSchema= new mongoose.Schema({
     name:{
         type:String,
@@ -36,7 +36,12 @@ const userSchema= new mongoose.Schema({
     resetPasswordlink:{
         type:String
         
-    }
+    },
+    list_vues:[ 
+       { type:ObjectId,ref:"User"}
+     ],
+  
+
 })
 
 mongoose.model("User",userSchema)

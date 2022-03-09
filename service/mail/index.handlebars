@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<!-- If you delete this meta tag, Half Life 3 will never be released.-->
+<!-- Template by marcosilva.co.uk, base on Zurb responsive templates and boiler plate, images and copy from http://www.hardgraft.com/ -->
+
+<meta name="viewport" content="width=device-width"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Wealzy notification </title>
+<link rel="stylesheet" type="text/css" href="email.css"/>
+</head>
+<body>
+ <table class="m_3339505860650449687main" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F2F2F2">
+   <tbody>
+      <tr>
+         <td class="m_3339505860650449687outer-box" bgcolor="#F2F2F2" align="center" style="padding:0 8px">
+
+            <table class="m_3339505860650449687width-550 m_3339505860650449687br-24" style="max-width:550px;border-radius:24px" width="100%" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" border="0">
+               <tbody>
+                  <tr>
+                     <td class="m_3339505860650449687content-box" style="padding-bottom:24px!important">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                           <tbody>
+                              <tr>
+                                 <td>
+                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                       <tbody>
+                                          <tr>
+                                             <td>
+                                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                   <tbody>
+                                                      <tr>
+                                                         <td style="padding-bottom:24px">
+                                                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                               <tbody>
+                                                                <tr>
+                                                                  <td >
+                                                                        <h1 class="m_3339505860650449687j-9" align="center" style="font-size:40px;line-height:36px;font-weight:bold;color:#122658;Margin:0">TuniPay veepee</h1>
+                                                                  </td>
+                                                               </tr>
+
+                                                                <tr>
+
+                                                                     <td>
+                                                                        <h1 class="m_3339505860650449687j-9" align="center" style="font-size:26px;line-height:36px;font-weight:bold;color:#000000;Margin:0"> nouveaux articles disponibles sur notre plateforme pour votre commande  </h1>
+                                                                     </td>
+                                                                  </tr>
+
+                                                               </tbody>
+                                                            </table>
+                                                         </td>
+                                                      </tr>
+                                                      <tr>
+                                                         <td style="font-size:1px;Margin:0;border-bottom:6px solid  #2ddbf9"> &nbsp; </td>
+                                                      </tr>
+                                                   </tbody>
+                                                </table>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="m_3339505860650449687content-box" style="padding-top:0!important">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f5f5f5;">
+                           <tbody>
+                              <tr>
+                                 <td>
+                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                       <tbody>
+                                          <tr>
+                                             <td>
+                                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                   <tbody>
+                                                     {{#each bien}}
+                                                      <tr>
+
+                                                         <td class="m_3339505860650449687j-c" style="padding:0px 0px 0px">
+                                                          <div class="card" style="padding:8px; margin:10px; display:flex;justify-content:space-around;align-items:start ;background-color:#fff;  border-radius: 18px;
+                                                          ">
+                                                            <div class="image" style="width:40%" >
+                                                             <img style="  border-radius: 18px" src="{{this.photo}}" alt="" width="200px" height="200px">
+
+                                                            </div>
+
+                                                            <div class="content" style="width:60%" >
+                                                              <table>
+                                                                <tr>
+                                                                  <td>
+                                                              <h1 style="margin-bottom: 0px;color:#122658;"> {{this.marque}}</h1>
+
+                                                            </td>
+
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                              <td style="font:14px/20px;font-weight:400;color:#000000;padding:0px 0px 4px"> <span style="font-size:16px;line-height:20px;font-weight:500;color:#2d2d2d">Type</span> <span style="color:#767676">{{this.type}} </span> </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                          <td style="font-size:1px;Margin:0;border-bottom:1px solid  #2ddbf9; width:100%"> &nbsp; </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                          <td style="font:14px/20px;font-weight:400;color:#000000;padding:0px 0px 4px"><span style="color:#767676;font-size:16px">taille : </span> <span style="font-size:16px;line-height:20px;font-weight:500;color:#2d2d2d">{{this.surface}} m<sup>2</sup></span>  </td>
+                                                          <td style="font:14px/20px;font-weight:400;color:#000000;padding:0px 0px 4px"> <span style="color:#767676;font-size:16px">quantité(s)  :</span> <span style="font-size:16px;line-height:20px;font-weight:500;color:#2d2d2d">{{this.quantite}}</span> </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                      <td style="font:14px/20px;font-weight:400;color:#000000;padding:0px 0px 4px"> <span style="color:#767676;font-size:16px">prix :</span> <span style="font-size:16px;line-height:20px;font-weight:500;color:#2d2d2d">{{this.price}} €</span> </td>
+                                                      <td>
+                                                        <a href="http://application.wealzy.com/in/annonce/List-annonces-non-inves/detail/{{this._id}}" style=" background-color: #122658;
+                                                        padding:10px;
+                                                        color: white;
+                                                        text-decoration: none;
+                                                        text-transform: uppercase;
+                                                        border-radius:10%">Consulter</a>
+                                                      </td>
+                                                </tr>
+                                            
+                                             
+                                                            </table>
+
+
+
+                                                            </div>
+
+
+                                                            <div>
+                                                         </td>
+                                                      </tr>
+                                                  
+                                                        {{/each}}
+
+
+                                                   </tbody>
+                                                </table>
+                                              <div style="text-align: center;">
+                                                  <p style="font-size: 14px; font-weight: bold; color: #2d2d2d; Margin: 0;">
+                                                   nouvelles annonces trouvées</p>
+                                              </div>
+                                            
+                                                <br/>
+                                                <div style="text-align: center;">
+                                                  
+                                                        <a href="http://application.wealzy.com/in/annonce/List-annonces-non-inves/" style=" background-color: #122658;
+                                                        padding:10px;
+                                                        color: white;
+                                                        text-decoration: none;
+                                                        text-transform: uppercase;
+                                                       
+                                                        border-radius:10%">Afficher les annonces</a> </div>
+                                                   
+                                                        <br/>
+                                             
+                                          </tr>
+
+                                       </tbody>
+                                    </table>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </td>
+                  </tr>
+
+               </tbody>
+            </table>
+
+         </td>
+      </tr>
+   </tbody>
+</table>
+
+</body>
+</html>

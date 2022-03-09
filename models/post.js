@@ -21,10 +21,26 @@ const postSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    marque:{
+        type:String,
+        required:true
+    },
+    taille:{
+        type:String,
+        required:true
+    },
+    type:{
+        type:String,
+        required:true
+    },
+    date_pub:{
+        type:Date,
+        default:Date.now()
+    },
     postedBy:{
         type:ObjectId,
         ref:"User"
     }
 })
 
-mongoose.model("Post",postSchema)
+module.exports =mongoose.model("Post",postSchema)

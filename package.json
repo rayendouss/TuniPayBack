@@ -20,7 +20,10 @@
     "jwt": "^0.2.0",
     "loadash": "^1.0.0",
     "mongoose": "^5.12.14",
+    "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
+    "nodemailer": "^6.7.2",
+    "nodemailer-express-handlebars": "^5.0.0",
     "nodemon": "^2.0.7",
     "react-google-login": "^5.2.2",
     "request": "^2.88.2"

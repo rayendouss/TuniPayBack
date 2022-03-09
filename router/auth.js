@@ -233,10 +233,10 @@ router.post("/googlelogin", (req, res) => {
         User.findOne({ email }).exec((err, user) => {
           if (user) {
             const token = jwt.sign({ _id: user._id }, JWT_SECRET);
-            const { _id, email, name } = user;
+            const { _id, email, name ,photo} = user;
             return res.json({
               token,
-              user: { _id, email, name }
+              user: { _id, email, name,photo }
             });
           } else {
             let password = email + JWT_SECRET;
@@ -365,6 +365,33 @@ router.get('/userId/:id',requireLogin,(req,res)=>{
   .sort({_id:-1})
   .then(result=>{
     return  res.json(result)
+  })
+})
+
+router.post('/addVue/:id',(req,res)=>{
+  User.findOne({_id:req.params.id}).then(user=>{
+    if(!user) {
+        return res.status(400).json({error:"user inexist"})
+    }
+    console.log(req.body._id)
+    User.findByIdAndUpdate(
+     req.params.id
+  ,{$push:{list_vues:req.body._id}},{new:true},(err,success)=>{
+    return  res.json({user})
+  })
+  })
+})
+
+router.get('/listVue/:id',(req,res)=>{
+  User.findOne({_id:req.params.id})
+  .populate('list_vues',"_id")
+  .then(user=>{
+    if(!user) {
+        return res.status(400).json({error:"user inexist"})
+    }
+   else{
+    return res.json(user.list_vues)
+   }
   })
 })
 

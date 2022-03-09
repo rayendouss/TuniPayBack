@@ -4,12 +4,19 @@ const mongoose=require('mongoose')
 const{MONGOURI}= require("./database/keys")
 const cors = require("cors")
 const app = express()
-
+const mailnotif = require('./service/mail/mailnotif');
 
 const port = 5000
+var cron = require('node-cron');
+
+cron.schedule('*/1 * * * *', () => {
+
+ // mailnotif.searchbiens()
+});
 require ('./models/user')
 require ('./models/post')
 require ('./models/commande')
+require ('./models/critere')
 
 app.use(express.json())
 app.use(cors())
