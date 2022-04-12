@@ -20,13 +20,15 @@ require ('./models/critere')
 
 app.use(express.json())
 app.use(cors())
+app.use(require('./router/stat'))
 app.use(require('./router/auth'))
 app.use(require('./router/post'))
 app.use(require('./router/commande'))
 
 
+
 mongoose.connect(MONGOURI,{
-    useUnifiedTopology: true , useNewUrlParser: true ,useFindAndModify:true
+    useUnifiedTopology: true , useNewUrlParser: true ,useFindAndModify:false
 })
 mongoose.connection.on('connected',()=>{
     console.log("connected to mongoDB atlas")

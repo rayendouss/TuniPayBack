@@ -34,7 +34,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
         res.status(500).json({err})
     })
 })
-router.get('/allposts/:type',requireLogin,(req,res)=>{
+router.get('/allposts/:type',(req,res)=>{
     
     var request={}
     switch(req.params.type){
@@ -57,6 +57,7 @@ router.get('/allposts/:type',requireLogin,(req,res)=>{
     .sort({_id:-1})
     .populate("postedBy","_id name email photo lastname")
     .then(result=>{
+        console.log('dkhal')
         res.json({posts:result})
     })
 })
@@ -342,5 +343,29 @@ router.get('/getmycritere/:id',(req,res)=>{
     })
    
 })
+
+router.delete('/deletecritere/:id',(req,res)=>{
+    Critere.deleteOne({_id:req.params.id})
+    .then(result=>{
+        Critere.find().then(results=>{
+            res.json({critere:results})
+        })
+    })
+})
+
+
+router.get('/productname/:name',(req,res)=>{
+    
+  
+ 
+    Post.find({marque:req.params.name})
+    .sort({_id:-1})
+   
+    .then(result=>{
+        console.log('dkhal')
+        res.json({posts:result})
+    })
+})
+
 
 module.exports= router

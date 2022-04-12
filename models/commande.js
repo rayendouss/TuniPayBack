@@ -31,6 +31,10 @@ const commandeSchema= new mongoose.Schema({
         type:String,
         required:true
     },
+    date_Reception:{
+        type:Date,
+        
+    },
 
 
 })
