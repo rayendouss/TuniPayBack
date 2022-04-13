@@ -395,4 +395,38 @@ router.get('/listVue/:id',(req,res)=>{
   })
 })
 
+router.post('/adminsignup',(req,res)=>{
+  const {name,email,password,status,photo}=req.body
+
+  User.findOne({email:email}).then((savedUser)=>{
+      if(savedUser){
+          return res.status(500).json({error:"user already exists"})
+      }   
+    else {
+      const user = new User({
+        email,
+        name,
+        password,
+        status,photo
+    }) 
+    user.save((err,user)=>{
+        if(err){
+            return res.status(401).json({
+                error:"error in register"
+            })
+        }
+        else{
+            return res.status(200).json({
+                message:"successfully activated",user
+            })
+        }
+    }) 
+    }
+     
+
+   
+  })
+
+})
+
 module.exports= router
