@@ -40,6 +40,10 @@ const postSchema = new mongoose.Schema({
     postedBy:{
         type:ObjectId,
         ref:"User"
+    },
+    status:{
+        type:String,
+        default:""
     }
 })
 

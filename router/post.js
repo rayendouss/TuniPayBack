@@ -358,12 +358,40 @@ router.get('/productname/:name',(req,res)=>{
     
   
  
-    Post.find({marque:req.params.name})
+    Post.find({marque:req.params.name,status:"verified"})
     .sort({_id:-1})
    
     .then(result=>{
         console.log('dkhal')
         res.json({posts:result})
+    })
+})
+
+
+router.post('/createpost2',requireLogin,(req,res)=>{
+ 
+    const {title,body,photo,price,quantite,marqueV,tailleV,gender}= req.body
+    if(!title || !body || !price ||!quantite ) {
+        return res.status(422).json({error:"Please add all fields"})
+    }
+    req.user.password=undefined
+    const post= new Post({
+        title,
+        body,
+        photo,
+        price,
+        quantite,
+        postedBy:req.user,
+        marque:marqueV,
+        taille:tailleV,
+        type:gender,
+        status:"verified"
+    })
+    post.save().then(result => {
+      
+        res.status(200).json({post:result})
+    }).catch((err)=> {
+        res.status(500).json({err})
     })
 })
 

@@ -19,6 +19,7 @@ require ('./models/commande')
 require ('./models/critere')
 
 app.use(express.json())
+
 app.use(cors())
 app.use(require('./router/stat'))
 app.use(require('./router/auth'))
