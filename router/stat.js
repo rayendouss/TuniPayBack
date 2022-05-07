@@ -21,7 +21,7 @@ router.get('/getNbnuser',(req,res)=>{
             }
         }]
     ).then((stat) => {
-        res.json(stat);
+        res.status(200).json(stat);
       });
 })
 

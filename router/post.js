@@ -57,8 +57,8 @@ router.get('/allposts/:type',(req,res)=>{
     .sort({_id:-1})
     .populate("postedBy","_id name email photo lastname")
     .then(result=>{
-        console.log('dkhal')
-        res.json({posts:result})
+       
+        res.status(200).json({posts:result})
     })
 })
 
@@ -71,12 +71,12 @@ router.get('/mypost',requireLogin,(req,res)=>{
     })
 })
 
-router.get('/post/:id',requireLogin,(req,res)=>{
+router.get('/post/:id',(req,res)=>{
     Post.findById({_id:req.params.id})
    
     .populate("postedBy","_id name email lastname photo")
     .then(result=>{
-        res.json({post:result})
+        res.status(200).json({post:result})
     })
 })
 
@@ -103,11 +103,11 @@ router.delete('/deleteP/:id',requireLogin,(req,res)=>{
     })
 })
 
-router.get('/userpost/:id',requireLogin,(req,res)=>{
+router.get('/userpost/:id',(req,res)=>{
     Post.find({postedBy:req.params.id})
     .populate('postedBy',"name lastname photo")
     .then(result=>{
-        res.json({post:result})
+        res.status(200).json({post:result})
     })
 })
 
@@ -339,7 +339,7 @@ router.get('/getmycritere/:id',(req,res)=>{
  Critere.find({postedBy:req.params.id})
  .sort({_id:-1})
  .then(result=>{
-   res.json({critere:result})
+   res.status(200).json({critere:result})
     })
    
 })
@@ -362,8 +362,8 @@ router.get('/productname/:name',(req,res)=>{
     .sort({_id:-1})
    
     .then(result=>{
-        console.log('dkhal')
-        res.json({posts:result})
+        
+        res.status(200).json({posts:result})
     })
 })
 

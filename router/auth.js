@@ -14,8 +14,8 @@ const sgMail = require('@sendgrid/mail');
 const { reset } = require("nodemon")
 sgMail.setApiKey(MAIL_KEY)
 
-router.get('/',requireLogin,(req,res)=>{
-    res.send('hello')
+router.get('/',(req,res)=>{
+    res.status(200).send('hello')
 })
 
 router.post('/signup',(req,res)=>{
@@ -352,7 +352,7 @@ User.findOne({_id:req.body._id},function (err,doc) {
 
 })
 
-router.get('/allUser',requireLogin,(req,res)=>{
+router.get('/allUser',(req,res)=>{
   User.find()
   .sort({_id:-1})
   .then(result=>{
@@ -360,11 +360,11 @@ router.get('/allUser',requireLogin,(req,res)=>{
   })
 })
 
-router.get('/userId/:id',requireLogin,(req,res)=>{
+router.get('/userId/:id',(req,res)=>{
   User.findById({_id:req.params.id})
   .sort({_id:-1})
   .then(result=>{
-    return  res.json(result)
+    return  res.status(200).json(result)
   })
 })
 
@@ -390,7 +390,7 @@ router.get('/listVue/:id',(req,res)=>{
         return res.status(400).json({error:"user inexist"})
     }
    else{
-    return res.json(user.list_vues)
+    return res.status(200).json(user.list_vues)
    }
   })
 })

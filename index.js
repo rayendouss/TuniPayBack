@@ -9,10 +9,10 @@ const mailnotif = require('./service/mail/mailnotif');
 const port = 5000
 var cron = require('node-cron');
 
-cron.schedule('*/1 * * * *', () => {
+// cron.schedule('*/1 * * * *', () => {
 
- // mailnotif.searchbiens()
-});
+//  // mailnotif.searchbiens()
+// });
 require ('./models/user')
 require ('./models/post')
 require ('./models/commande')
@@ -43,3 +43,5 @@ app.listen(port,()=>{
     console.log(`Server listening on port ${port}`);
 })
 
+
+module.exports = app

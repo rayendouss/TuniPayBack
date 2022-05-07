@@ -51,13 +51,13 @@ router.post('/addCommande',requireLogin,(req,res)=>{
     })*/
 })
 
-router.get('/allCommandes',requireLogin,(req,res)=>{
+router.get('/allCommandes',(req,res)=>{
     Commande.find()
     .populate("commandeBy","_id name email lastname photo")
     .populate("listCommande")
  
     .then((result)=>{
-        res.json({commandes:result})
+        res.status(200).json({commandes:result})
     })
 })
 
@@ -67,7 +67,7 @@ router.get('/commande/:id',(req,res)=>{
     .populate("listCommande")
    
     .then(result=>{
-        res.json({commande:result})
+        res.send(200).json({commande:result})
     })
 })
 
@@ -160,7 +160,7 @@ router.get('/commandetraite',(req,res)=>{
     .populate("listCommande","_id title photo price")
     .sort({date_Reception:-1})
     .then(result=>{
-        res.json({result})
+        res.status(200).json({result})
     })
 })
 module.exports= router
