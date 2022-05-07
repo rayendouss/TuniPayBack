@@ -3,11 +3,10 @@ const request = require("supertest");
 const app = require("../index.js");
 
 describe("critere controller test", () => {
- 
   it("get critere by id", async () => {
-    const res = await request(app).get("/getmycritere/60eebb9333adea1234df75cf");
-    expect(res.statusCode).toBe(200);      
-  });
+           const res = await request(app).get("/getmycritere/60eebb9333adea1234df75cf");
+           expect(res.statusCode).toBe(200);      
+         });
  
 
 })
@@ -119,7 +118,7 @@ describe('user controller test',()=>{
 })
 
 
-afterAll(() => setTimeout(() => process.exit(4000)))
+//afterAll(() => setTimeout(() => process.exit()))
 
 
 
